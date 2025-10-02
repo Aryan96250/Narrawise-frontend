@@ -1,0 +1,13 @@
+<header class="header">
+  <div class="header-left">
+    <button (click)="toggleSidebar()" *ngIf="!isSidebarOpen" aria-label="Toggle sidebar">
+      <img src="/assets/icons/layout.svg" alt="Toggle sidebar" />
+    </button>
+    <button (click)="startNewChat()" *ngIf="!isSidebarOpen" aria-label="Start new chat">
+      <img src="/assets/icons/newChat.svg" alt="New chat" />
+    </button>
+    <!-- <div class="p-outter-div">
+      <p>Dabur GPT</p>
+    </div> -->
+  </div>
+</header>

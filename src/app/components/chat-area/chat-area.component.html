@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+
+<div class="chat-area">
+  <div *ngIf="currentConversation && currentConversation.messages.length > 0; else emptyState" class="messages-container" #messagesContainer>
+    <div *ngFor="let message of currentConversation.messages" 
+         class="message"
+         [class.user-message]="message.isUser"
+         [class.ai-message]="!message.isUser">
+      <div class="message-content">
+        <div class="message-text" [innerHTML]="renderMarkdown(message.content)" (click)="handleDownloadClick($event)"></div>
+      </div>
+    </div>
+    
+    <div *ngIf="isLoading" class="message ai-message thinking">
+      <div class="message-content">
+        <div class="thinking-indicator">
+          <div class="thinking-dot"></div>
+          <div class="thinking-dot"></div>
+          <div class="thinking-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <h2 class="empty-state-subtitle">Dabur <span style="color: #f4711e;">GPT</span></h2>
+      <img class="empty-state-icon" src="assets/icons/dabur-logo.png" alt="" width="100px" height="100px">
+      <h3 class="empty-state-title">What can I help with?</h3>
+    </div>
+  </ng-template>
+</div>
+
+
+<div class="message-input-container">
+  <div class="input-wrapper">
+    <textarea
+      class="message-input"
+      placeholder="Ask a question..."
+      [(ngModel)]="messageText"
+      (keydown.enter)="handleEnterKey($event)"
+      [disabled]="isLoading"
+      #messageTextarea>
+    </textarea>
+    <button 
+      class="send-button" 
+      [disabled]="!canSendMessage || isLoading"
+      (click)="sendMessage()"
+      [class.loading]="isLoading"
+      aria-label="Send message">
+      <img src="assets/icons/arrow-up-circle-fill.svg" *ngIf="!isLoading" width="24" height="24"/>
+      <div *ngIf="isLoading" class="loading-indicator">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </button>
+  </div>
+  <div class="input-footer">
+    <p class="disclaimer">AI may produce inaccurate information about people, places, or facts.</p>
+  </div>
+</div>

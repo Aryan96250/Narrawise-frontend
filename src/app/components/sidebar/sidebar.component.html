@@ -1,0 +1,24 @@
+<section class="sidebar">
+  <div class="sidebar-header">
+    <button (click)="toggleSidebar()" aria-label="Toggle sidebar">
+      <img src="/assets/icons/layout.svg" alt="Toggle sidebar" />
+    </button>
+    <button (click)="startNewChat()" aria-label="Start new chat">
+      <img src="/assets/icons/newChat.svg" alt="New chat" />
+    </button>
+  </div>
+  <div class="conversations">
+    <div class="conversations-list">
+      <div *ngFor="let conversation of conversations" class="conversation-item"
+        [class.active]="isActiveConversation(conversation.id)" (click)="selectConversation(conversation.id)">
+        <div class="conversation-details">
+          <div class="conversations-title">{{ conversation.title }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="conversations.length === 0" class="no-conversations">
+        No conversations yet
+      </div>
+    </div>
+  </div>
+</section>
